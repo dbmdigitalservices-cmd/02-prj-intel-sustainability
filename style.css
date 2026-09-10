@@ -111,17 +111,11 @@ body {
 
 .timeline {
 	position: relative;
-	display: flex;
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
 	gap: 1.5rem;
-	overflow-x: auto;
 	padding: 2rem;
-	/* Make each card settle into place while scrolling. */
-	scroll-snap-type: x mandatory;
-	scroll-behavior: smooth;
-	scroll-padding-left: 2rem;
-	/* Improve touchpad and mobile scrolling. */
-	overscroll-behavior-inline: contain;
-	-webkit-overflow-scrolling: touch;
+	overflow: visible;
 }
 
 .timeline::before {
@@ -138,7 +132,6 @@ body {
 .milestone-card {
 	position: relative;
 	display: flex;
-	flex: 0 0 320px;
 	flex-direction: column;
 	overflow: hidden;
 	min-height: 430px;
@@ -146,9 +139,8 @@ body {
 	border-radius: 16px;
 	background-color: var(--white);
 	box-shadow: 0 8px 20px rgba(0, 40, 90, 0.1);
-	scroll-snap-align: start;
-	scroll-snap-stop: always;
 	transition: transform 0.2s ease, box-shadow 0.2s ease;
+	width: 100%;
 }
 
 .milestone-card::before {
@@ -237,6 +229,12 @@ body {
 	opacity: 1;
 }
 
+@media (max-width: 900px) {
+	.timeline {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
 @media (max-width: 768px) {
 	.hero {
 		min-height: 420px;
@@ -248,11 +246,7 @@ body {
 	}
 
 	.timeline {
-		flex-direction: column;
-		gap: 1.5rem;
-		overflow-x: visible;
 		padding: 1.25rem;
-		scroll-snap-type: none;
 	}
 
 	.timeline::before {
@@ -262,11 +256,6 @@ body {
 		right: auto;
 		width: 4px;
 		height: auto;
-	}
-
-	.milestone-card {
-		flex: none;
-		width: 100%;
 	}
 
 	.milestone-details {
@@ -296,10 +285,11 @@ body {
 	}
 
 	.timeline {
+		grid-template-columns: 1fr;
 		padding: 1.5rem 20px;
 	}
 
-	.milestone-card {
-		flex-basis: 300px;
+	.timeline::before {
+		display: none;
 	}
 }
